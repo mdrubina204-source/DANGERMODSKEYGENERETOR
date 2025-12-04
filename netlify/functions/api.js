@@ -1,6 +1,6 @@
-exports.handler = async () => {
+exports.handler = async (event, context) => {
   return {
     statusCode: 200,
-    body: "API Working!"
+    body: JSON.stringify({ message: "API Working on Netlify!" })
   };
 };
