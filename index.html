@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DANGER MODS – Key Generator</title>
+
+<style>
+  :root{
+    --muted: #9aa7b2;
+    font-family: Arial, sans-serif;
+  }
+
+  body{
+    margin:0;
+    background:#000;
+    color:#e6f0f2;
+    overflow:hidden;
+  }
+
+  .wrap{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    position:relative;
+    z-index:10;
+  }
+
+  .card{
+    width:100%;
+    max-width:420px;
+    background:rgba(255,255,255,0.05);
+    padding:28px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+  }
+
+  .logo{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    overflow:hidden;
+    margin:0 auto 15px;
+    background:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  h1{
+    text-align:center;
+    margin:0 0 18px;
+  }
+
+  label{
+    display:block;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+
+  select{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.1);
+    background:rgba(255,255,255,0.05);
+    color:white;
+    font-size:15px;
+  }
+
+  .keyBox{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:12px;
+    border-radius:10px;
+    font-family:monospace;
+    min-height:45px;
+    text-align:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:12px;
+  }
+
+  .btn{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    background:#0ea5a4;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:16px;
+  }
+
+  .btn.secondary{
+    background:transparent;
+    border:1px solid #5eead4;
+    color:#5eead4;
+  }
+
+  .toast{
+    position:fixed;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:30px;
+    background:rgba(255,255,255,0.1);
+    padding:10px 14px;
+    border-radius:10px;
+    opacity:0;
+    transition:0.25s;
+    z-index:99;
+  }
+
+  .toast.show{ opacity:1; bottom:45px; }
+</style>
+</head>
+<body>
+
+<!-- Hacker Background -->
+<canvas id="hackerParticles" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;"></canvas>
+
+<div class="wrap">
+  <div class="card">
+
+    <!-- Circle Logo -->
+    <div class="logo">
+      <img src="https://i.supaimg.com/c9488a28-6ddb-463b-8ba2-e2c0f117c8f0.png" alt="Logo">
+      <!-- ⚠️ Replace above with YOUR DIRECT IMAGE LINK -->
+    </div>
+
+    <h1>DANGER MODS</h1>
+
+    <!-- Days -->
+    <label for="days">Days</label>
+    <select id="days">
+      <option value="1">1 Day</option>
+      <option value="3">3 Days</option>
+      <option value="7" selected>7 Days</option>
+      <option value="30">30 Days</option>
+      <option value="LT">Lifetime</option>
+    </select>
+
+    <br><br>
+
+    <!-- Device Limit -->
+    <label for="device">Device Limit</label>
+    <select id="device">
+      <option value="1DEV">1 Device</option>
+      <option value="2DEV">2 Devices</option>
+      <option value="3DEV">3 Devices</option>
+      <option value="5DEV">5 Devices</option>
+      <option value="UNLIM">Unlimited Devices</option>
+    </select>
+
+    <div class="keyBox" id="keyDisplay">— press Generate Key —</div>
+
+    <button id="generateBtn" class="btn">Generate Key</button>
+    <button id="telegramBtn" class="btn secondary">Join Telegram</button>
+    <button id="copyBtn" class="btn secondary">Copy Key</button>
+
+  </div>
+</div>
+
+<div id="toast" class="toast">Copied!</div>
+
+<script>
+/* KEY GENERATOR */
+function secureRandom(len){
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  const arr = new Uint8Array(len);
+  crypto.getRandomValues(arr);
+  return [...arr].map(n=>chars[n%chars.length]).join('');
+}
+
+function makeKey(){
+  const days = document.getElementById("days").value;
+  const dev = document.getElementById("device").value;
+
+  const dayPrefix = days === "LT" ? "LT" : days + "D";
+
+  return (
+    dayPrefix + "-" + dev + "-" +
+    secureRandom(4) + "-" +
+    secureRandom(4) + "-" +
+    secureRandom(4) + "-" +
+    secureRandom(4)
+  );
+}
+
+document.getElementById("generateBtn").onclick = () => {
+  keyDisplay.textContent = makeKey();
+};
+
+document.getElementById("copyBtn").onclick = async () => {
+  await navigator.clipboard.writeText(keyDisplay.textContent);
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1500);
+};
+
+document.getElementById("telegramBtn").onclick = () => {
+  window.open("https://t.me/+L7c0XyJ-14o5MGQ9", "_blank");
+};
+
+/* PARTICLE BACKGROUND */
+const canvas = document.getElementById("hackerParticles");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.onresize = resize;
+
+let particles = [];
+for(let i = 0; i < 80; i++){
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    speedX: (Math.random() - 0.5) * 0.5,
+    speedY: (Math.random() - 0.5) * 0.5,
+    size: Math.random() * 2 + 1
+  });
+}
+
+function drawParticles(){
+  ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle = "#00ff9d";
+
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+
+    p.x += p.speedX;
+    p.y += p.speedY;
+
+    if(p.x < 0) p.x = canvas.width;
+    if(p.x > canvas.width) p.x = 0;
+    if(p.y < 0) p.y = canvas.height;
+    if(p.y > canvas.height) p.y = 0;
+  });
+
+  requestAnimationFrame(drawParticles);
+}
+
+drawParticles();
+</script>
+
+</body>
+</html>
