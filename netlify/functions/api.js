@@ -1,10 +1,26 @@
-exports.handler = async (event, context) => {
-  // Example response with a string key
+exports.handler = async () => {
   return {
     statusCode: 200,
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
-      type: "string",  // <- make sure this is a string
-      message: "API Working"
+      type: "string",
+      message:
+`⚡️ DANGER MODS API ⚡️
+
+╔════════════════════╗
+║   🚀 API IS LIVE!   ║
+║   ✅ STATUS: OK     ║
+║   🎯 READY TO USE   ║
+╚════════════════════╝
+
+✨ Tips:
+• Use your key correctly
+• Stay updated
+• Enjoy smooth access
+
+🔥 Powered by Netlify`
     })
   };
 };
