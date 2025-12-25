@@ -1,11 +1,9 @@
 {
-  "name": "danger-keygen",
+  "name": "danger-mods-api",
   "version": "1.0.0",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "description": "API for Android JNI Login",
+  "main": "index.html",
   "dependencies": {
-    "express": "^4.18.2"
+    "node-fetch": "^2.6.7"
   }
 }
